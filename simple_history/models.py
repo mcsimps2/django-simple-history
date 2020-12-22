@@ -550,7 +550,7 @@ def transform_field(field):
     elif isinstance(field, models.AutoField):
         field.__class__ = models.IntegerField
 
-    elif isinstance(field, models.FileField):
+    elif isinstance(field, models.FileField) and getattr(settings, "SIMPLE_HISTORY_TRANSFORM_FILEFIELD", True):
         # Don't copy file, just path.
         if getattr(settings, "SIMPLE_HISTORY_FILEFIELD_TO_CHARFIELD", False):
             field.__class__ = models.CharField
